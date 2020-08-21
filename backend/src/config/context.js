@@ -1,6 +1,6 @@
 module.exports = {
   username: 'root',
-  password: '',
+  password: '1234',
   database: 'vuttr',
 	host: '127.0.0.1',
 	port: '3306',
