@@ -1,10 +1,11 @@
+
 module.exports = (sequelize, DataTypes) => {
-	const Tools = sequelize.define('Tools',{
-		title: DataTypes.STRING,
+  const Tool = sequelize.define('Tool', {
+    title: DataTypes.STRING,
 		link: DataTypes.STRING,
 		description: DataTypes.STRING,
 		tags: DataTypes.JSON,
-	});
+  });
 
-	return Tools;
-}
+  return Tool;
+};
