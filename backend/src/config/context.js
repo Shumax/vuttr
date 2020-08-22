@@ -1,7 +1,16 @@
 module.exports = {
-  username: 'root',
-  password: 'senha_da_nasa',
-  database: 'vuttr',
-	host: '127.0.0.1',
-	dialect: 'mysql',
-}
+	development: {
+		dialect: 'mysql',
+		host: '127.0.0.1',
+		port: 3306,
+		username: 'root',
+		password: 'senha_da_nasa',
+		database: 'vuttr',
+		operatorAliases: false,
+		define: {
+			timestamps: true,
+			underscored: true,
+			underscoredAll: true,
+		},
+	},
+};
