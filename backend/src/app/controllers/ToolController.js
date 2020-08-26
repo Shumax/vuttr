@@ -3,33 +3,28 @@ const Sequelize = require('sequelize');
 
 class ToolController {
 
-	async getAll(request, response) {
-		try {
-			const findAllTools = await Tool.findAll();
-			
-			return response.json(findAllTools);
-
-		} catch (err) {
-			return response.status(400).json({ error: err.message });
-		}
-	}
-
-	async getByTag(request, response) {
-		try {
-			const tag = request.query.tag;
-			console.log(tag);
-			const Op = Sequelize.Op;
-			console.log(value)
-
-			const findTool = await Tool.findAll({
-				where: {
-					tags: {
-						[Op.like]: `%${tag}%`
+	async index(request, response) {
+		const tag = request.query.tag;
+		console.log(tag);
+		const Op = Sequelize.Op;
+		
+		try {	
+		
+			if (tag) {
+				const findTool = await Tool.findAll({
+					where: {
+						tags: {
+							[Op.like]: `%${tag}%`
+						}
 					}
-				}
-			});
-
-			return response.json(findTool);
+				});
+	
+				return response.json(findTool);
+			} else {
+				const findAllTools = await Tool.findAll();
+			
+			  return response.json(findAllTools);
+			}
 			
 		} catch (err) {
 			return response.status(400).json({ error: err.message });
