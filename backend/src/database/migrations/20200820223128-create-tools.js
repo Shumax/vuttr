@@ -23,7 +23,7 @@ module.exports = {
 			},
 			tags: {
 				allowNull: false,
-				type: Sequelize.JSON,
+				type: Sequelize.STRING,
 			},
 			created_at: {
 				allowNull: false,

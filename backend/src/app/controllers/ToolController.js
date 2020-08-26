@@ -1,4 +1,5 @@
 const { Tool } = require('../models');
+const Sequelize = require('sequelize');
 
 class ToolController {
 
@@ -17,14 +18,18 @@ class ToolController {
 		try {
 			const tag = request.query.tag;
 			console.log(tag);
+			const Op = Sequelize.Op;
+			console.log(value)
 
 			const findTool = await Tool.findAll({
 				where: {
-					tags: tag
+					tags: {
+						[Op.like]: `%${tag}%`
+					}
 				}
 			});
 
-			return findTool;
+			return response.json(findTool);
 			
 		} catch (err) {
 			return response.status(400).json({ error: err.message });

@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
 		link: DataTypes.STRING,
 		description: DataTypes.STRING,
-		tags: DataTypes.JSON,
+		tags: DataTypes.STRING,
   });
 
   return Tool;

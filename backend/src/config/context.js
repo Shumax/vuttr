@@ -8,7 +8,7 @@ module.exports = {
 		database: 'vuttr',
 		operatorAliases: false,
 		define: {
-			timestamps: true,
+			timestamps: false,
 			underscored: true,
 			underscoredAll: true,
 		},
