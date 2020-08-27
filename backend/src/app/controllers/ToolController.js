@@ -5,7 +5,6 @@ const { Tool } = require('../models');
 class ToolController {
   async index(request, response) {
     const { tag } = request.query;
-
     const { Op } = Sequelize;
 
     try {
