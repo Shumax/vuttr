@@ -7,5 +7,4 @@ routes.get('/tools', ToolController.index);
 routes.post('/tools', ToolController.storage);
 routes.delete('/tools/:id', ToolController.destroy);
 
-
 module.exports = routes;
