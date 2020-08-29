@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     link: DataTypes.STRING,
     description: DataTypes.STRING,
-    tags: DataTypes.STRING,
+    tags: DataTypes.JSON,
   });
 
   return Tool;
