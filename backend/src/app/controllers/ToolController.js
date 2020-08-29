@@ -1,27 +1,22 @@
 /* eslint-disable no-tabs */
 /* eslint-disable class-methods-use-this */
-// const Sequelize = require('sequelize');
-const { Tool, sequelize } = require('../models');
+const Sequelize = require('sequelize');
+const { Tool } = require('../models');
 
 class ToolController {
   async index(request, response) {
     const { tag } = request.query;
-    // const { Op } = Sequelize;
+    const { Op } = Sequelize;
 
     try {
       if (tag) {
-        /* const findTool = await Tool.findAll({
+        const findTool = await Tool.findAll({
           where: {
             tags: {
-              [Op.like]: `%${tag}%`,
+              [Op.like]: [`%${tag}%`],
             },
           },
-				}); */
-
-        const findTool = await sequelize.query(
-          // eslint-disable-next-line no-template-curly-in-string
-          `SELECT * FROM vuttr_development.tools where tags like '%${tag}%'`,
-        );
+        });
 
         return response.json(findTool);
       }
