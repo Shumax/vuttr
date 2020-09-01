@@ -129,13 +129,24 @@
  Status: 204 No Content 
 
 
+## Itens Extras
+ - Migrations para configuração do banco de dados utilizado;
+ - Testes;
+ - Autenticação e autorização ( JWT );
+ - Deploy ( Heroku );
+
 ## Dependências Necessárias
 ```json
 {
+	"bcryptjs": "^2.4.3",
 	"body-parser": "^1.19.0",
+	"cross-env": "^7.0.2",
 	"express": "^4.17.1",
+	"jest": "^26.4.2",
+	"jsonwebtoken": "^8.5.1",
 	"mysql2": "^2.1.0",
 	"sequelize": "^6.3.4",
+	"supertest": "^4.0.2",
 	"sequelize-cli": "^6.2.0",
 	"eslint": "^7.7.0"
 }
