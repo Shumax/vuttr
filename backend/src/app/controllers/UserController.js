@@ -1,6 +1,7 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable class-methods-use-this */
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 
 class UserController {
@@ -26,14 +27,20 @@ class UserController {
 
   async signin(request, response) {
     const { email, password } = request.body;
-    const findUser = await User.findOne({ where: { email: email } });
+    const findedUser = await User.findOne({ where: { email: email } });
+    const validatePassword = await bcrypt.compare(password, findedUser.password);
+    const token = jwt.sign({ id: findedUser.id }, 'secret', { expiresIn: 7200 });
 
     try {
-      if (findUser) {
+      if (!findedUser) {
         return response.status(404).json({ error: 'User not found' });
       }
 
-      const validatePassword = bcrypt.compareHash(password, findUser.password);
+      if (!validatePassword) {
+        return response.status(400).json({ error: 'Invalid password' });
+      }
+
+      return response.json({ findedUser, token });
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }
