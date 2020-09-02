@@ -5,6 +5,43 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 
 class UserController {
+  async index(request, response) {
+    try {
+      const findAllUsers = await User.findAll();
+
+      return response.json(findAllUsers);
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
+  }
+
+  async destroy(request, response) {
+    try {
+      const findUser = await User.findByPk(request.params.id);
+
+      await findUser.destroy();
+
+      return response.status(204).json();
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
+  }
+
+  async update(request, response) {
+    try {
+      request.body.password = await bcrypt.hash(request.body.password, 8);
+
+      const updateUser = await User.update(
+        request.body,
+        { where: { id: request.params.id } },
+      );
+
+      return response.status(202).json(updateUser);
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
+  }
+
   async storage(request, response) {
     const { name, email, password } = request.body;
 
