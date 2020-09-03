@@ -65,13 +65,13 @@ class UserController {
   async signin(request, response) {
     const { email, password } = request.body;
     const findedUser = await User.findOne({ where: { email: email } });
-    const validatePassword = await bcrypt.compare(password, findedUser.password);
-    const token = jwt.sign({ id: findedUser.id }, 'secret', { expiresIn: 7200 });
 
     try {
       if (!findedUser) {
         return response.status(404).json({ error: 'User not found' });
       }
+      const validatePassword = await bcrypt.compare(password, findedUser.password);
+      const token = jwt.sign({ id: findedUser.id }, 'secret', { expiresIn: 7200 });
 
       if (!validatePassword) {
         return response.status(400).json({ error: 'Invalid password' });
