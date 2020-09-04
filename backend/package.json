@@ -1,0 +1,32 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cross-env": "^7.0.2",
+    "express": "^4.17.1",
+    "jest": "^26.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^6.3.4",
+    "supertest": "^4.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "nodemon": "^2.0.4",
+    "sequelize-cli": "^6.2.0"
+  },
+  "scripts": {
+		"start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "db:reset": "sequelize db:drop && sequelize db:create && sequelize db:migrate",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --forceExit",
+    "db:create:test": "cross-env NODE_ENV=test sequelize db:create",
+    "pretest": "cross-env NODE_ENV=test yarn db:reset"
+  }
+}
