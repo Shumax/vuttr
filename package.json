@@ -22,7 +22,7 @@
     "sequelize-cli": "^6.2.0"
   },
   "scripts": {
-		"start": "node src/index.js",
+		"start": "node src/index.js cross-env NODE_ENV=production",
     "dev": "nodemon src/index.js",
     "db:reset": "sequelize db:drop && sequelize db:create && sequelize db:migrate",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --forceExit",
