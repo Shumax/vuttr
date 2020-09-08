@@ -36,7 +36,13 @@ class UserController {
         { where: { id: request.params.id } },
       );
 
-      return response.status(202).json(updateUser);
+      let findedUser;
+
+      if (updateUser) {
+        findedUser = await User.findOne({ where: { email: request.body.email } });
+      }
+
+      return response.status(202).json(findedUser);
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }

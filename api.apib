@@ -1,0 +1,390 @@
+FORMAT: 1A
+
+# Vuttr API
+
+A aplicação é um simples repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags.
+
+# Group Users
+
+## User Register [/register]
+
+### Criar user [POST]
+* O corpo da requisição deve conter as informações do usuário a ser cadastrado, sem o ID (gerado automaticamente pelo servidor). 
+* A resposta, em caso de sucesso, deve ser o mesmo objeto, com seu novo ID gerado.
+
++ Request (application/json)
+
+            {
+                "name": "Testes",
+                "email": "testes@example.com",
+                "password": "123456"
+            }
+
++ Response 201 (application/json)
+
+            {
+                "id": 2,
+                "name": "Testes",
+                "email": "testes@example.com",
+                "password": "$2a$08$VRVn35cfwku24MH27K8MBOBE0anyk5/q475BMop71dYBZycbX3kBy"
+            }
+
+## User Login [/login]
+
+### Autenticação de users [POST]
+* O corpo da requisição deve conter e-mail e senha do usuário;
+* A resposta, em caso de sucesso, deve ser o objeto do usuário e o Token gerado;
+* Em caso de e-mail errado ou inexistente, a resposta deve conter o objeto com a mensagem de erro;
+* Em caso de senha errada, a resposta deve conter o objeto com a mensagem de erro.
+
++ Request (application/json)
+
+            {
+                "email": "testes@example.com",
+                "password": "123456"
+            }
+
++ Response 200 (application/json)
+
+            {
+                "findedUser": {
+                    "id": 2,
+                    "name": "Testes",
+                    "email": "testes@example.com",
+                    "password": "$2a$08$VRVn35cfwku24MH27K8MBOBE0anyk5/q475BMop71dYBZycbX3kBy"
+                },
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTk5NTk5MTkzLCJleHAiOjE1OTk2MDYzOTN9.KuZXIb2vpcpzYgjXeMwFNqe53JKxmlUI6jJF4wk6edE"
+            }
+
++ Response 404 (application/json)
+
+            {
+                "error": "User not found"
+            }
+
++ Response 400 (application/json)
+
+            {
+                "error": "Invalid password"
+            }
+
+## Users [/users]
+
+### Listar users [GET]
+* O cabeçalho da requisição deve conter o token gerado na chave Authorization;
+* A resposta, em caso de sucesso, deve ser um array de objetos dos usuários;
+* Em caso de token errado, expirado ou inexistente, a resposta deve conter o objeto com sua respectiva mensagem de erro;
+
++ Request
+    + Headers
+
+                Authorization: Token
+
+
++ Response 200 (application/json)
+            
+            [
+                {
+                    "id": 1,
+                    "name": "Max Castro",
+                    "email": "max@example.com",
+                    "password": "$2a$08$7oiW7Skmi1NJil1asYbnS.Fcvf2F/66n97AmjMIorYr26PepWmAAG"
+                },
+                {
+                    "id": 2,
+                    "name": "Testes",
+                    "email": "testes@example.com",
+                    "password": "$2a$08$VRVn35cfwku24MH27K8MBOBE0anyk5/q475BMop71dYBZycbX3kBy"
+                }
+            ]
+
++ Response 401 (application/json)
+    
+            {
+                "error": "Token invalid"
+            }
+
++ Response 401 (application/json)
+
+            {
+                "error": "No token provided"
+            }
+
+## User Collection [/users/:Id]
+
+### Atualiza users [PUT]
+* O cabeçalho da requisição deve conter o token gerado na chave Authorization;
+* A resposta, em caso de sucesso, deve ser o mesmo objeto, com as alterações;
+* Em caso de token errado, expirado ou inexistente, a resposta deve conter o objeto com sua respectiva mensagem de erro;
+
++ Request
+    + Headers
+
+                Authorization: Token
+    + Body
+
+                {
+                    "name": "Teste",
+                    "email": "test@exemple.com",
+                    "password": "123456"
+                }
+
++ Response 202 (application/json)
+            
+            {
+                "id": 2,
+                "name": "Teste",
+                "email": "test@exemple.com",
+                "password": "$2a$08$4UvcHwo3JOdUHRkk2/uvDuU3.f51yyX0E/Xr9o8HBX219ZzimuTqC"
+            }
+
++ Response 401 (application/json)
+    
+            {
+                "error": "Token invalid"
+            }
+
++ Response 401 (application/json)
+
+            {
+                "error": "No token provided"
+            }
+
+### Excluir user [DELETE]
+* O cabeçalho da requisição deve conter o token gerado na chave Authorization;
+* A resposta, em caso de sucesso, deve ser conteúdo vazio;
+* Em caso de token errado, expirado ou inexistente, a resposta deve conter o objeto com sua respectiva mensagem de erro;
+
++ Request
+    + Headers
+
+                Authorization: Token
+
++ Response 204 (application/json)
+
++ Response 401 (application/json)
+    
+            {
+                "error": "Token invalid"
+            }
+
++ Response 401 (application/json)
+
+            {
+                "error": "No token provided"
+            }
+
+# Group Tools
+
+## Tools Collection [/tools]
+
+### Listar tools [GET]
+* O cabeçalho da requisição deve conter o token gerado na chave Authorization;
+* A resposta, em caso de sucesso, deve ser um array de objetos das ferramentas;
+* Em caso de token errado, expirado ou inexistente, a resposta deve conter o objeto com sua respectiva mensagem de erro;
+
++ Request
+    + Headers
+
+                Authorization: Token
+
++ Response 200 (application/json)
+            
+            [
+                {
+                    "id": 1,
+                    "title": "Notion",
+                    "link": "https://notion.so",
+                    "description": "All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized",
+                    "tags": [
+                        "organization",
+                        "planning",
+                        "collaboration",
+                        "writing",
+                        "calendar"
+                    ]
+                },
+                {
+                    "id": 2,
+                    "title": "json-server",
+                    "link": "https://github.com/typicode/json-server",
+                    "description": "Fake REST API based on a json schema. Useful for mocking and creating APIs for front-end devs to consume in coding challenges.",
+                    "tags": [
+                        "api",
+                        "json",
+                        "schema",
+                        "node",
+                        "github",
+                        "rest"
+                    ]
+                },
+                {
+                    "id": 3,
+                    "title": "fastify",
+                    "link": "https://www.fastify.io/",
+                    "description": "Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.",
+                    "tags": [
+                        "web",
+                        "framework",
+                        "node",
+                        "http2",
+                        "https",
+                        "localhost"
+                    ]
+                }
+            ]
+
++ Response 401 (application/json)
+    
+            {
+                "error": "Token invalid"
+            }
+
++ Response 401 (application/json)
+
+            {
+                "error": "No token provided"
+            }
+
+### Cadastrar tool [POST]
+* O corpo da requisição deve conter as informações do usuário a ser cadastrado, sem o ID (gerado automaticamente pelo servidor). 
+* A resposta, em caso de sucesso, deve ser o mesmo objeto, com seu novo ID gerado.
+
++ Request (application/json)
+    + Headers
+
+                    Authorization: Token
+    + Body
+
+            {
+                "title": "hotel",
+                "link": "https://github.com/typicode/hotel",
+                "description": "Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.",
+                "tags":["node", "organizing", "webapps", "domain", "developer", "https", "proxy"]
+            }
+
++ Response 201 (application/json)
+
+            {
+                "id": 5,
+                "title": "hotel",
+                "link": "https://github.com/typicode/hotel",
+                "description": "Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.",
+                "tags":["node", "organizing", "webapps", "domain", "developer", "https", "proxy"]
+            }
+
++ Response 401 (application/json)
+    
+            {
+                "error": "Token invalid"
+            }
+
++ Response 401 (application/json)
+
+            {
+                "error": "No token provided"
+            }
+
+## Delete Tool [/tools/:Id]
+
+### Excluir tool [DELETE]
+* O cabeçalho da requisição deve conter o token gerado na chave Authorization;
+* A resposta, em caso de sucesso, deve ser conteúdo vazio;
+* Em caso de token errado, expirado ou inexistente, a resposta deve conter o objeto com sua respectiva mensagem de erro;
+
++ Request
+    + Headers
+
+                Authorization: Token
+
++ Response 204 (application/json)
+
++ Response 401 (application/json)
+    
+            {
+                "error": "Token invalid"
+            }
+
++ Response 401 (application/json)
+
+            {
+                "error": "No token provided"
+            }
+
+## Tags [/tools/tag=node]
+
+### Listar tools pela tag [GET]
+* O cabeçalho da requisição deve conter o token gerado na chave Authorization;
+* A resposta, em caso de sucesso, deve ser um array de objetos de ferramentas filtrados pela tag fornecida (node é a tag sendo buscada neste exemplo);
+* Em caso de token errado, expirado ou inexistente, a resposta deve conter o objeto com sua respectiva mensagem de erro;
+
++ Request
+    + Headers
+
+                Authorization: Token
+
++ Response 200 (application/json)
+            
+            [
+                {
+                    "id": 1,
+                    "title": "Notion",
+                    "link": "https://notion.so",
+                    "description": "All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized",
+                    "tags": [
+                        "organization",
+                        "planning",
+                        "collaboration",
+                        "writing",
+                        "calendar"
+                    ]
+                },
+                {
+                    "id": 2,
+                    "title": "json-server",
+                    "link": "https://github.com/typicode/json-server",
+                    "description": "Fake REST API based on a json schema. Useful for mocking and creating APIs for front-end devs to consume in coding challenges.",
+                    "tags": [
+                        "api",
+                        "json",
+                        "schema",
+                        "node",
+                        "github",
+                        "rest"
+                    ]
+                },
+                {
+                    "id": 3,
+                    "title": "fastify",
+                    "link": "https://www.fastify.io/",
+                    "description": "Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.",
+                    "tags": [
+                        "web",
+                        "framework",
+                        "node",
+                        "http2",
+                        "https",
+                        "localhost"
+                    ]
+                }
+            ]
+
++ Response 401 (application/json)
+    
+            {
+                "error": "Token invalid"
+            }
+
++ Response 401 (application/json)
+
+            {
+                "error": "No token provided"
+            }
+
+# Data Structures
+
+## Id (object)
++ id (number) - Id a ser processado
+
+## Token (object)
++ token (string) - Token do usuário conectado
