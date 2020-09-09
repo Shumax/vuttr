@@ -27,4 +27,19 @@ module.exports = {
       underscoredAll: true,
     },
   },
+  production: {
+    use_env_variable: 'DATABASE_URL',
+    dialect: 'mysql',
+    host: 'us-cdbr-east-02.cleardb.com',
+    port: 3306,
+    username: 'bd2770f14e364c',
+    password: 'b75604bc',
+    database: 'heroku_74cad5838e216b3',
+    operatorAliases: false,
+    define: {
+      timestamps: false,
+      underscored: true,
+      underscoredAll: true,
+    },
+  },
 };
