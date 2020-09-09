@@ -30,11 +30,11 @@ module.exports = {
   production: {
     use_env_variable: 'DATABASE_URL',
     dialect: 'mysql',
-    host: 'us-cdbr-east-02.cleardb.com',
+    host: 'sh4ob67ph9l80v61.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
     port: 3306,
-    username: 'bd2770f14e364c',
-    password: 'b75604bc',
-    database: 'heroku_74cad5838e216b3',
+    username: 'byr7mc4nup5w2ghu',
+    password: 'iicfl77rfzff4cwv',
+    database: 'j67buej374f7ve6z',
     operatorAliases: false,
     define: {
       timestamps: false,
