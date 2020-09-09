@@ -12,17 +12,17 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.4",
+    "sequelize-cli": "^6.2.0",
     "supertest": "^4.0.2"
   },
   "devDependencies": {
     "eslint": "^7.7.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
-    "nodemon": "^2.0.4",
-    "sequelize-cli": "^6.2.0"
+    "nodemon": "^2.0.4"
   },
   "scripts": {
-		"start": "node src/index.js cross-env NODE_ENV=production",
+    "start": "node src/index.js cross-env NODE_ENV=production",
     "dev": "nodemon src/index.js",
     "db:reset": "sequelize db:drop && sequelize db:create && sequelize db:migrate",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --forceExit",
