@@ -146,9 +146,8 @@
 	"jsonwebtoken": "^8.5.1",
 	"mysql2": "^2.1.0",
 	"sequelize": "^6.3.4",
-	"supertest": "^4.0.2",
 	"sequelize-cli": "^6.2.0",
-	"eslint": "^7.7.0"
+	"supertest": "^4.0.2"
 }
 ```
 
