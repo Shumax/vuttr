@@ -80,7 +80,7 @@ class UserController {
       const token = jwt.sign({ id: findedUser.id }, 'secret', { expiresIn: 7200 });
 
       if (!validatePassword) {
-        return response.status(400).json({ error: 'Invalid password' });
+        return response.status(403).json({ error: 'Invalid password' });
       }
 
       return response.json({ findedUser, token });
